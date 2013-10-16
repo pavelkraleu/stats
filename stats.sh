@@ -31,5 +31,13 @@ timestamp=`date +%s`
 
 uptime=`cat /proc/uptime | awk '{print($1)}'`
 
-echo "$timestamp $uptime $memtotal $memused $memfree $membuffer $memcached $chrometabs $energynow $energyfull $energycycles $energyvoltage $load" >> /var/stats
+# Temperature
+
+temp=`sensors | grep temp1 | awk '{print($2)}' | egrep -o '[0-9.]+'`
+
+# Fan speed
+
+fan=`sensors | grep fan1 | awk '{print($2)}'`
+
+echo "$timestamp $uptime $memtotal $memused $memfree $membuffer $memcached $chrometabs $energynow $energyfull $energycycles $energyvoltage $load $temp $fan" >> /var/stats
 
